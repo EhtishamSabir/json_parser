@@ -1,0 +1,19 @@
+Start with Yellow Sheet
+Grab the first Dialog for entry - Should be the first entry Yellow Highlighted Cell
+Use the JSON.txt
+Have the logic to iterate through this JSON (Main Task) - This should iterate through all the parent node and its subsequent child nodes
+For example Parent node here contains ATT Wireless, ATT Digital Phone (I might be out of sequence)
+Scenerio 1:
+
+When you look at the subsequent node AT&T Wireless has 4 subsequent values further going down, "Make or edit payment arrangement" has one more which ends with message. So in this case the route would be AT&T Wireless>>Make or edit payment arrangement (Green Highlights)
+Next line would be end response message (Blue Highlight)
+
+Scenerio 2:
+Again looking at the same node AT&T Wireless -> Get info about a bill credit. This route would be AT&T Wireless>>Get info about a bill credit>>Credit for switching (Green Highlights)
+Next line would be end response message (Blue Highlights)
+AT&T Wireless>>Get info about a bill credit>>Another credit question (Green Highlights)
+Next line would be end response message (Blue Highlights)
+
+This way it should iterate all nodes and create the script
+
+Once it ends, it should go back to yellow sheet then get next dialog and repeat the same script again until it finds the empty row in yellow sheet (basically it is repeating the same above function/call)
