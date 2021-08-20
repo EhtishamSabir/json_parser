@@ -6,7 +6,7 @@ from message_reader import start
 
 input_file = "input.csv"
 output_file = "out.csv"
-json_file = "var.json"
+json_file = "var_old.json"
 
 # reading input file & sheet
 df = pd.read_csv(input_file, header=None)
@@ -20,7 +20,7 @@ def to_every_message(row):
     print(cell_value)
 
     # getting response from core function
-    path_list, response_list = start()
+    path_list, response_list = start(file_name=json_file)
 
     write_list = [(cell_value, "", "")]
     for new_row in zip(path_list, response_list):
@@ -37,4 +37,4 @@ df.apply(to_every_message, raw=True, axis=1)
 
 # from dataframes to output excel
 df_out = pd.DataFrame(final_written)
-df_out.to_csv(output_file, index=False, header=False)
+df_out.to_csv(output_file, index=False, header=False,encoding='Windows-1252')

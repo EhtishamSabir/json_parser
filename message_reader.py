@@ -1,7 +1,7 @@
 import json
 
 stack_path = []
-root_node = ''
+
 path_list = []
 response_list = []
 
@@ -19,7 +19,7 @@ def add_stack(var):
 def show_stack():
     global stack_path
     # print(root_node, ">>", ">>".join(stack_path))
-    path_list.append(root_node + ">>" + ">>".join(stack_path))
+    path_list.append( ">>".join(stack_path))
 
 
 # recursive function to implement logic
@@ -36,7 +36,15 @@ def p_list(dct1):
                 stack_pop()
             tmp = 0
             try:
+                # response_list.append(dct1[nodes]['message'])
+                # add_stack(str(nodes))
+
                 tmp = dct1[nodes]['values']
+                show_stack()
+                response_list.append(dct1[nodes]['message'])
+                print(nodes)
+                # stack_pop()
+
                 p_list(dct1[nodes])
                 tmp = 0
             except KeyError:
@@ -59,20 +67,19 @@ def p_list(dct1):
                     try:
                         p_list(dct1[nodes]["values"])
                     except:
+                        # response_list.append(dct1[nodes]['message'])
                         pass
 
 
 def start(file_name='var.json'):
     global root_node, path_list, response_list
-    with open(file_name, 'r', encoding='utf') as f:
+    with open(file_name, 'r', encoding='Windows-1252') as f:
         dct = json.loads(f.read())
-    parent_nodes = []
-    for item in dct:
-        if item in ['values', 'message', 'components']:
-            continue
-        parent_nodes.append(item)
 
-    for nod in parent_nodes:
-        root_node = nod
-        p_list(dct[nod])
-    return path_list, response_list
+
+    p_list(dct)
+    tmp = path_list
+    tmp2 = response_list
+    path_list = []
+    response_list = []
+    return tmp, tmp2
